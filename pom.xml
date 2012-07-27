@@ -8,5 +8,6 @@
   <name>RemoteDiaryEnterpriseApp</name>
   <modules>
     <module>RemoteDiaryEnterpriseApp-ear</module>
+    <module>RemoteDiaryModel</module>
   </modules>
 </project>
