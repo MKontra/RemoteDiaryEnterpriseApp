@@ -4,18 +4,27 @@
  */
 package com.mycompany.remotediarymodel;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author Administrator
  */
 @Entity
-public class DiaryUser{
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
+public class DiaryUser
+{
 
     @Id
-    @GeneratedValue(strategy= GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @XmlElement
     private Long Id;
 
     public Long getId()
@@ -27,9 +36,9 @@ public class DiaryUser{
     {
         this.Id = Id;
     }
-    
-    
-    
+    @XmlElement
+    @NotNull
+    @Size(min=4, max=20)
     private String Name;
 
     /**
@@ -37,7 +46,8 @@ public class DiaryUser{
      *
      * @return the value of Name
      */
-    public String getName() {
+    public String getName()
+    {
         return Name;
     }
 
@@ -46,9 +56,11 @@ public class DiaryUser{
      *
      * @param Name new value of Name
      */
-    public void setName(String Name) {
+    public void setName(String Name)
+    {
         this.Name = Name;
     }
+    @XmlElement
     private byte[] PasswordSHash;
 
     /**
@@ -56,7 +68,8 @@ public class DiaryUser{
      *
      * @return the value of PasswordSHash
      */
-    public byte[] getPasswordSHash() {
+    public byte[] getPasswordSHash()
+    {
         return PasswordSHash;
     }
 
@@ -65,28 +78,30 @@ public class DiaryUser{
      *
      * @param PasswordSHash new value of PasswordSHash
      */
-    public void setPasswordSHash(byte[] PasswordSHash) {
+    public void setPasswordSHash(byte[] PasswordSHash)
+    {
         this.PasswordSHash = PasswordSHash;
     }
-
-    @ManyToMany(mappedBy="Members")
+    
+    @ManyToMany(mappedBy = "Members")
+    @XmlTransient
     private List<DiaryGroup> Groups;
 
     public void addToGroup(DiaryGroup dg)
     {
-        if ( !Groups.contains(dg) )
+        if (!Groups.contains(dg))
         {
             dg.addUserNonChecking(this);
             Groups.add(dg);
         }
     }
-    
+
     public void removeFromGroup(DiaryGroup dg)
     {
         dg.removeUserNonChecking(this);
         Groups.remove(dg);
     }
-    
+
     public List<DiaryGroup> getGroups()
     {
         return Groups;
@@ -96,8 +111,20 @@ public class DiaryUser{
     {
         this.Groups = groups;
     }
+
+    public DiaryUser()
+    {
+        this.Groups = new ArrayList<DiaryGroup>();
+    }
+
     
     
+    
+    @Override
+    public String toString()
+    {
+        return "DiaryUser{" + "Id=" + Id + ", Name=" + Name + ", PasswordSHash=" + PasswordSHash + '}';
+    }
     
     
 }

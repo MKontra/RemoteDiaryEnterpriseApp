@@ -6,14 +6,19 @@ package com.mycompany.remotediarymodel;
 
 import java.util.List;
 import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 /**
  *
  * @author Administrator
  */
 @Entity
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class DiaryGroup{
     @Id
+    @XmlID
+    @XmlElement
     @GeneratedValue(strategy= GenerationType.TABLE)
     private Long Id;
 
@@ -46,7 +51,8 @@ public class DiaryGroup{
         this.Name = Name;
     }
     
-    @ManyToMany(mappedBy="Groups")
+    @ManyToMany
+    @JoinTable
     private List<DiaryUser> Members;
 
     /**

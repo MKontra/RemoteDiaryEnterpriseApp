@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateDiaryUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateDiaryUserLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{diaryUserController.selected.id}" title="#{bundle.CreateDiaryUserTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateDiaryUserLabel_name}" for="name" />
+                    <h:inputText id="name" value="#{diaryUserController.selected.name}" title="#{bundle.CreateDiaryUserTitle_name}" />
+                    <h:outputLabel value="#{bundle.CreateDiaryUserLabel_passwordSHash}" for="passwordSHash" />
+                    <h:inputText id="passwordSHash" value="#{diaryUserController.selected.passwordSHash}" title="#{bundle.CreateDiaryUserTitle_passwordSHash}" />
+                    <h:outputLabel value="#{bundle.CreateDiaryUserLabel_groups}" for="groups" />
+                    <h:inputText id="groups" value="#{diaryUserController.selected.groups}" title="#{bundle.CreateDiaryUserTitle_groups}" />
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{diaryUserController.create}" value="#{bundle.CreateDiaryUserSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{diaryUserController.prepareList}" value="#{bundle.CreateDiaryUserShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.CreateDiaryUserIndexLink}" action="/index" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDiaryUserTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDiaryUserLabel_id}"/>
+                    <h:outputText value="#{diaryUserController.selected.id}" title="#{bundle.ViewDiaryUserTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewDiaryUserLabel_name}"/>
+                    <h:outputText value="#{diaryUserController.selected.name}" title="#{bundle.ViewDiaryUserTitle_name}"/>
+                    <h:outputText value="#{bundle.ViewDiaryUserLabel_passwordSHash}"/>
+                    <h:outputText value="#{diaryUserController.selected.passwordSHash}" title="#{bundle.ViewDiaryUserTitle_passwordSHash}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{diaryUserController.destroyAndView}" value="#{bundle.ViewDiaryUserDestroyLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="Edit" value="#{bundle.ViewDiaryUserEditLink}"/>
+                <br />
+                <h:commandLink action="#{diaryUserController.prepareCreate}" value="#{bundle.ViewDiaryUserCreateLink}" />
+                <br />
+                <h:commandLink action="#{diaryUserController.prepareList}" value="#{bundle.ViewDiaryUserShowAllLink}"/>
+                <br />
+                <br />
+                <h:commandLink value="#{bundle.ViewDiaryUserIndexLink}" action="/index" immediate="true" />
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

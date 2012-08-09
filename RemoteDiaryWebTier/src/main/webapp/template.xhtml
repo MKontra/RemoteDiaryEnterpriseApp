@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <link type="text/css" rel="stylesheet" href="/RemoteDiaryWebTier/resources/css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="/RemoteDiaryWebTier/resources/css/rd.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title><ui:insert name="title">Default Title</ui:insert></title>
+    </h:head>
+
+    <h:body styleClass="grad">
+
+
+        <div class="container blue">
+            <div class="row-fluid" style="background-color: #EAE9E4; border-radius: 5px; height:100px;">    <div class="span12">
+                    <h1>
+                        <ui:insert name="title">Default Title</ui:insert>
+                    </h1>
+                </div></div>
+            <div class="row-fluid">
+                <div class="span2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">...</a></li>
+                    </ul>
+                </div>
+                <div class="span10">
+                    <ui:insert name="body">Default Body</ui:insert>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </h:body>
+
+</html>
