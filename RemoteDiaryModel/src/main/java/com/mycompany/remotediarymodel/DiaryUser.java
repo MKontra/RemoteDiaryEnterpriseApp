@@ -19,12 +19,11 @@ import javax.xml.bind.annotation.*;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class DiaryUser
+public class DiaryUser implements IIdAble
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    @XmlElement
+    @GeneratedValue
     private Long Id;
 
     public Long getId()
@@ -60,7 +59,6 @@ public class DiaryUser
     {
         this.Name = Name;
     }
-    @XmlElement
     private byte[] PasswordSHash;
 
     /**
@@ -84,10 +82,9 @@ public class DiaryUser
     }
     
     @ManyToMany(mappedBy = "Members")
-    @XmlTransient
-    private List<DiaryGroup> Groups;
+    private List<DiaryGroup> Groups = new java.util.ArrayList<>();
 
-    public void addToGroup(DiaryGroup dg)
+    public void addToGroups(DiaryGroup dg)
     {
         if (!Groups.contains(dg))
         {
@@ -96,7 +93,7 @@ public class DiaryUser
         }
     }
 
-    public void removeFromGroup(DiaryGroup dg)
+    public void removeFromGroups(DiaryGroup dg)
     {
         dg.removeUserNonChecking(this);
         Groups.remove(dg);
@@ -112,19 +109,23 @@ public class DiaryUser
         this.Groups = groups;
     }
 
-    public DiaryUser()
-    {
-        this.Groups = new ArrayList<DiaryGroup>();
-    }
-
-    
-    
-    
     @Override
     public String toString()
     {
         return "DiaryUser{" + "Id=" + Id + ", Name=" + Name + ", PasswordSHash=" + PasswordSHash + '}';
     }
+
+    void addGroupNonChecking(DiaryGroup dg)
+    {
+            Groups.add(dg);
+    }
+
+    void removeGroupNonChecking(DiaryGroup dg)
+    {
+            Groups.remove(dg);
+    }
     
-    
+    public DiaryUser()
+    {
+    }
 }

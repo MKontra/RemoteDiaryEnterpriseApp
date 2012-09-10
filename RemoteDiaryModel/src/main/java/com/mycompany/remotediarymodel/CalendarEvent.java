@@ -7,13 +7,15 @@ package com.mycompany.remotediarymodel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
+import javax.validation.constraints.Null;
 
 /**
  *
  * @author Administrator
  */
 @Entity
-public class CalendarEvent{
+public class CalendarEvent implements IIdAble
+{
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
     private Long Id;
@@ -27,6 +29,78 @@ public class CalendarEvent{
     {
         this.Id = Id;
     }
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Long repeatInterval;
+
+    /**
+     * Get the value of repeatInterval
+     *
+     * @return the value of repeatInterval
+     */
+    public Long getRepeatInterval()
+    {
+        return repeatInterval;
+    }
+
+    /**
+     * Set the value of repeatInterval
+     *
+     * @param repeatInterval new value of repeatInterval
+     */
+    public void setRepeatInterval(Long repeatInterval)
+    {
+        this.repeatInterval = repeatInterval;
+    }
+
+    
+    private String eventType;
+
+    /**
+     * Get the value of eventType
+     *
+     * @return the value of eventType
+     */
+    public String getEventType()
+    {
+        return eventType;
+    }
+
+    /**
+     * Set the value of eventType
+     *
+     * @param eventType new value of eventType
+     */
+    public void setEventType(String eventType)
+    {
+        this.eventType = eventType;
+    }
+
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Long occurDateTime;
+
+    /**
+     * Get the value of when
+     *
+     * @return the value of when
+     */
+    public Long getWhen()
+    {
+        return occurDateTime;
+    }
+
+    /**
+     * Set the value of when
+     *
+     * @param when new value of when
+     */
+    public void setWhen(Long when)
+    {
+        this.occurDateTime = when;
+    }
+
+    
     private String Name;
 
     /**
@@ -84,10 +158,10 @@ public class CalendarEvent{
     
     
     @OneToMany(cascade= CascadeType.ALL,mappedBy="owningEvent")
-    private List<CalendarEventAlert> Alerts;
+    private List<CalendarEventAlert> Alerts = new ArrayList<>();
 
     
-    public void addAlert(CalendarEventAlert cea)
+    public void addToAlerts(CalendarEventAlert cea)
     {
         if ( !Alerts.contains(cea) )
         {
@@ -96,8 +170,9 @@ public class CalendarEvent{
         }
     }
     
-    public void removeAlert(CalendarEventAlert cea)
+    public void removeFromAlerts(CalendarEventAlert cea)
     {
+        cea.setOwningEvent(null);
         Alerts.remove(cea);
     }
     
@@ -120,7 +195,7 @@ public class CalendarEvent{
     }
     
     @OneToMany(mappedBy="owningEvent")
-    private List<CalendarEventNotice> Notices;
+    private List<CalendarEventNotice> Notices = new ArrayList<>();
 
     /**
      * Get the value of Notices
@@ -139,10 +214,23 @@ public class CalendarEvent{
     public void setNotices(List<CalendarEventNotice> Notices) {
         this.Notices = Notices;
     }
+    
+    public void addToNotices(CalendarEventNotice cea)
+    {
+        if ( !Notices.contains(cea) )
+        {
+            cea.setOwningEvent(this);
+            Notices.add(cea);
+        }
+    }
+    
+    public void removeFromNotices(CalendarEventNotice cea)
+    {
+        cea.setOwningEvent(null);
+        Notices.remove(cea);
+    }
 
     public CalendarEvent() {
-        this.Alerts = new ArrayList<>();
-        this.Notices = new ArrayList<>();
     }
 
 }

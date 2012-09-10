@@ -11,7 +11,8 @@ import javax.persistence.*;
  * @author Administrator
  */
 @Entity
-public class CalendarEventNotice{
+public class CalendarEventNotice implements IIdAble
+{
     @Id
     @GeneratedValue(strategy= GenerationType.TABLE)
     private Long Id;

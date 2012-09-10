@@ -2,11 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mycompany.remotediarylogic;
+package com.mycompany.remotediarylogic.EJB;
 
-import com.mycompany.remotediarymodel.DiaryGroup;
+import com.mycompany.remotediarylogic.DTO.DiaryUserDto;
 import com.mycompany.remotediarymodel.DiaryUser;
-import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -14,6 +13,7 @@ import javax.ejb.Local;
  * @author Administrator
  */
 @Local
-public interface DiaryUserFacadeLocal extends AbstractFacadeInterface<DiaryUser>
-{  
+public interface DiaryUserBeanLocal extends AbstractEJBEntityFacadeInterface<DiaryUser, DiaryUserDto>
+{
+    
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
  * @author Administrator
  */
 @Entity
-public class Calendar
+public class Calendar implements IIdAble
 {
 
     @Id
@@ -73,7 +73,7 @@ public class Calendar
         this.Name = Name;
     }
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owningCalendar")
-    private List<CalendarEvent> Events;
+    private List<CalendarEvent> Events = new java.util.ArrayList<>();
 
     /**
      * Get the value of Events
@@ -85,7 +85,7 @@ public class Calendar
         return Events;
     }
 
-    public void addEvent(CalendarEvent e)
+    public void addToEvents(CalendarEvent e)
     {
         if (!Events.contains(e))
         {
@@ -94,8 +94,9 @@ public class Calendar
         }
     }
 
-    public void removeEvent(CalendarEvent e)
+    public void removeFromEvents(CalendarEvent e)
     {
+        e.setOwningCalendar(null);
         Events.remove(e);
     }
     
@@ -111,6 +112,5 @@ public class Calendar
 
     public Calendar()
     {
-        Events = new java.util.ArrayList<>();
     }
 }

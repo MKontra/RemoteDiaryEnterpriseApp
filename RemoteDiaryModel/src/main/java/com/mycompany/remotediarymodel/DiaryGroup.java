@@ -15,10 +15,10 @@ import javax.xml.bind.annotation.*;
 @Entity
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class DiaryGroup{
+public class DiaryGroup implements IIdAble
+{
     @Id
     @XmlID
-    @XmlElement
     @GeneratedValue(strategy= GenerationType.TABLE)
     private Long Id;
 
@@ -53,7 +53,7 @@ public class DiaryGroup{
     
     @ManyToMany
     @JoinTable
-    private List<DiaryUser> Members;
+    private List<DiaryUser> Members = new java.util.ArrayList<>();
 
     /**
      * Get the value of Members
@@ -72,10 +72,21 @@ public class DiaryGroup{
     public void setMembers(List<DiaryUser> Members) {
         this.Members = Members;
     }
-
-    public DiaryGroup() {
-        Members = new java.util.ArrayList<>();
+    
+    public void addToMembers(DiaryUser du)
+    {
+        if (!Members.contains(du))
+        {
+            du.addGroupNonChecking(this);
+            Members.add(du);
+        }
     }
+
+    public void removeFromMembers(DiaryUser du)
+    {
+        du.removeGroupNonChecking(this);
+        Members.remove(du);
+    } 
 
     void removeUserNonChecking(DiaryUser aThis)
     {
@@ -84,7 +95,10 @@ public class DiaryGroup{
 
     void addUserNonChecking(DiaryUser aThis)
     {
-        Members.remove(aThis);
+        Members.add(aThis);
+   
+    }   
+    
+    public DiaryGroup() {
     }
-
 }

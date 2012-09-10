@@ -4,8 +4,10 @@
  */
 package com.mycompany.remotediary.restapi;
 
-import com.mycompany.remotediarylogic.AbstractFacadeInterface;
-import com.mycompany.remotediarylogic.DiaryUserFacadeLocal;
+import com.mycompany.remotediarylogic.DTO.DiaryUserDto;
+import com.mycompany.remotediarylogic.EJB.AbstractEJBEntityFacadeInterface;
+import com.mycompany.remotediarylogic.EJB.DiaryUserBeanLocal;
+import com.mycompany.remotediarylogic.changesets.DiaryUserChangeSet;
 import com.mycompany.remotediarymodel.DiaryUser;
 import java.lang.reflect.Type;
 import javax.ejb.EJB;
@@ -26,14 +28,14 @@ import javax.enterprise.context.RequestScoped;
  */
 @Path("user")
 @RequestScoped
-public class UserResource extends AbstractResource<DiaryUser>
+public class UserResource extends AbstractResource<DiaryUser, DiaryUserDto, DiaryUserChangeSet>
 {
 
-    @EJB
-    private DiaryUserFacadeLocal dufl;
+    @EJB(name="DiaryUserBean")
+    private DiaryUserBeanLocal dufl;
 
     @Override
-    public AbstractFacadeInterface getFacade()
+    public AbstractEJBEntityFacadeInterface getFacade()
     {
         return dufl;
     }
