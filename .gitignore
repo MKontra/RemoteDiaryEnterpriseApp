@@ -2,3 +2,7 @@
 /RemoteDiaryModel/target/
 /RemoteDiaryLogic/target/
 /RemoteDiaryWebTier/target/
+
+.project
+.settings
+.classpath
